@@ -24,17 +24,18 @@ inputFieldset.forEach(input => {
 const form = document.querySelector('.form');
 
 form.addEventListener('submit', (event) => {
+    event.preventDefault();
     let delay = inputElement.value;
     const promise = new Promise((resolve, reject) => {
         const stateValue = document.querySelector('input[name="state"]:checked').value;
-        if (stateValue === 'fulfilled') {
-            resolve();
-        } else {
-            reject();
-        }
-    });
-
-    setTimeout(() => {
+        setTimeout(() => {
+            if (stateValue === 'fulfilled') {
+                resolve(delay);
+            } else {
+                reject(delay);
+            }
+        }, delay);
+        });
         promise
             .then(() => {
                 iziToast.success({
@@ -58,8 +59,6 @@ form.addEventListener('submit', (event) => {
                     close: false,
                 });
             });
-    }, delay);
-    event.preventDefault();
     form.reset();
 });
 

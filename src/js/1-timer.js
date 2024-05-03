@@ -58,11 +58,12 @@ function pad(value) {
 }
 
 buttonElement.addEventListener('click', () => {
-    let interval = setInterval(() => {
+    let intervalId = setInterval(() => {
         todayDate = new Date();
         const ms = userSelectedDate.getTime() - todayDate.getTime();
         if (ms <= 0) {
-            clearInterval(interval);
+            clearInterval(intervalId);
+            inputElement.disabled = false;
             return;
         }
         const { days, hours, minutes, seconds } = convertMs(ms);
@@ -74,3 +75,4 @@ buttonElement.addEventListener('click', () => {
     buttonElement.disabled = true;
     inputElement.disabled = true;
 });
+
